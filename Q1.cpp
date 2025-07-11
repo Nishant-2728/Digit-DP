@@ -8,7 +8,7 @@ long long int Count(string &num,int N,int X,bool tight,vector<vector<vector<long
         return 0LL;
     }
     if(N==0){
-        if(X>=0)
+        if(X==0)
             return 1LL;
         return 0LL;
     }
@@ -25,8 +25,21 @@ long long int Count(string &num,int N,int X,bool tight,vector<vector<vector<long
 int main(){
     string R;
     cin>>R;
-    int X;
-    cin>>X;
-    vector<vector<vector<long long int>>>dp(100,vector<vector<long long int>>(181,vector<long long int>(2,-1)));
-    cout<<Count(R,R.size(),X,1,dp)<<endl;
+    int sum;
+    cin>>sum;
+    vector<vector<vector<long long int>>>dp(100,vector<vector<long long int>>(181,vector<long long int>(2,0)));
+    dp[0][0][1]=1LL;
+    for(int sz=0;sz<R.size();sz++){
+        for(int X=0;X<=sum;X++){
+            for(int tight=0;tight<2;tight++){
+                int ub=tight?(R[sz]-'0'):9;
+                for(int digit=0;digit<=ub;digit++){
+                    if(X+digit<=sum){
+                        dp[sz+1][X+digit][tight&(digit==ub)]+=dp[sz][X][tight];
+                    }
+                }
+            }
+        }
+    }
+    cout<<dp[R.size()][sum][1]+dp[R.size()][sum][0]<<endl;
 }
