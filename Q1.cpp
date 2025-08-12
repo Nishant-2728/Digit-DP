@@ -1,5 +1,5 @@
 /*Find count of numbers in the range [0,R] such that 
-sum pf digits is X.
+sum of digits is X.
 1<=L<=R<=1e18,1<=X<=180*/
 #include<bits/stdc++.h>
 using namespace std;
